@@ -1,17 +1,12 @@
 package com.taozeyu.taolan.analysis;
 
-import com.taozeyu.taolan.analysis.Clash0Function.Math;
-import com.taozeyu.taolan.analysis.Clash0Function.System;
+import com.taozeyu.taolan.analysis.classes.Classes;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class Token {
 
     private static final HashSet<String> keywordsSet = new HashSet<>();
-    private static final Map<String, HashSet<String>> classSet = new HashMap<>();
-    private static final HashSet<String> functionSet = new HashSet<>();
 
 	private boolean isSingleQuoter;
 	
@@ -19,18 +14,16 @@ public class Token {
         keywordsSet.add("true");
         keywordsSet.add("false");
         keywordsSet.add("null");
-
-        classSet.put("String", com.taozeyu.taolan.analysis.Clash0Function.String.functionsSet);
-        classSet.put("Math", Math.functionsSet);
-        classSet.put("Math", System.functionsSet);
-
-        functionSet.addAll(com.taozeyu.taolan.analysis.Clash0Function.String.functionsSet);
-        functionSet.addAll(Math.functionsSet);
-        functionSet.addAll(System.functionsSet);
+        keywordsSet.addAll(Classes.map.keySet());
+        for(String[] array : Classes.map.values()){
+            for(String value : array){
+                keywordsSet.add(value);
+            }
+        }
     }
 
     // Identifier 初步是字母+数字+_，继续拆分出数字和关键字
-    public static enum Type {
+    public enum Type {
         Keyword, Number, Identifier, Sign, String, Space, NewLine, EndSymbol
     }
 
@@ -56,6 +49,8 @@ public class Token {
         }
         this.type = type;
         this.value = value;
+
+        Util.log("Token", toString());
     }
 	
 	public boolean isSingleQuoter()

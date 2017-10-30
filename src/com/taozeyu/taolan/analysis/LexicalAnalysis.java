@@ -72,9 +72,7 @@ public class LexicalAnalysis {
     }
 
     private void createToken(Type type) {
-        Token token = new Token(type, readBuffer.toString());
-        tokenBuffer.addFirst(token);
-        readBuffer = null;
+        createToken(type, readBuffer.toString());
     }
 
     private void createToken(Type type, String value) {
