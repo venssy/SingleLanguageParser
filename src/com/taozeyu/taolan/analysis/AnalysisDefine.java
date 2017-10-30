@@ -37,7 +37,7 @@ class AnalysisDefine {
         }
     }
 
-    private static class containerNodeSupplier extends ElementNodeSupplier {
+    public static class containerNodeSupplier extends ElementNodeSupplier {
         public AnalysisNode get() {
             return new DefaultContainerNode();
         }
@@ -46,7 +46,7 @@ class AnalysisDefine {
     /**
      * 仅可用于双目运算符
      */
-    private static class expressionDefaultNode extends ElementNodeSupplier {
+    public static class expressionDefaultNodeSupplier extends ElementNodeSupplier {
         public AnalysisNode get() {
             return new ExpressionDefaultNode();
         }
@@ -214,7 +214,7 @@ class AnalysisDefine {
                 Exp.L3ParamExpression, Exp.L2ParamExpression,
                 Exp.L0ParamExpression,
 
-        }, new expressionDefaultNode());
+        }, new expressionDefaultNodeSupplier());
 
         creator(new Exp[]{Exp.L9Expression, Exp.L9ParamExpression}, new ElementNodeSupplier() {
             public AnalysisNode get() {
@@ -739,16 +739,6 @@ class AnalysisDefine {
             }
         });
     }
-
-    /*static AnalysisNode createContainer(Exp exp) {
-        Supplier<AnalysisNode> supplier = containerMap.get(exp);
-        AnalysisNode analysisNode = null;
-        if(supplier != null) {
-            analysisNode = supplier.get();
-            analysisNode.setExp(exp);
-        }
-        return analysisNode;
-    }*/
 
     static AnalysisNode createContainer(Exp exp) {
         //Supplier<AnalysisNode> supplier = containerMap.get(exp);

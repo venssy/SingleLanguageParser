@@ -10,7 +10,7 @@ import java.io.StringReader;
 
 public class Main {
     public static void main(String[] args){
-        String code = "3+5+(\"String\"&5)+" +
+        String code = "3+5+(\"String\"-5)+" +
 						"String.";
         System.out.println(code+"\n\n");
         Reader r = new StringReader(code);

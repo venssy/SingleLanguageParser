@@ -92,6 +92,7 @@ class FirstSetConstructor {
         HashSet<TerminalSymbol> firstSet = new HashSet<>();
         boolean thisExpansionCanBeEmpty = true;
         for(Object obj:expansion) {
+			Util.log("Obj", obj.toString());
             NonTerminalSymbol node = tryGetNonTerminalSymbol(obj);
             boolean willContinue = false;
             if(node != null) {
@@ -129,6 +130,7 @@ class FirstSetConstructor {
             node = (NonTerminalSymbol) obj;
 
         } else if(obj instanceof Exp){
+			Util.log("Exp", obj.toString());
             Exp exp = (Exp) obj;
             node = expContainer.get(exp);
         }

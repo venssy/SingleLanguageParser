@@ -40,7 +40,7 @@ class SyntacticDefine {
 
             //表达式相关
                 //赋值表达式
-            /*node(Exp.L0Expression).or(Exp.L1Expression, node().or(Exp.L0Sign, Exp.L1Expression).sign('*')),
+            node(Exp.L0Expression).or(Exp.L1Expression, node().or(Exp.L0Sign, Exp.L1Expression).sign('*')),
             node(Exp.L0ParamExpression).or(Exp.L1ParamExpression, node().or(Exp.L0Sign, Exp.L1ParamExpression).sign('*')),
 
             node(Exp.L0Sign).or(token(Type.Sign, "="))
@@ -48,7 +48,7 @@ class SyntacticDefine {
                             .or(token(Type.Sign, "*=")).or(token(Type.Sign, "/="))
                             .or(token(Type.Sign, "&&=")).or(token(Type.Sign, "=~"))
                             .or(token(Type.Sign, "||=")).or(token(Type.Sign, "&="))
-                            .or(token(Type.Sign, "<<")),*/
+                            .or(token(Type.Sign, "<<")),
 
 
             // 二元判断
