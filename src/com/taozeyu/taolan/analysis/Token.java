@@ -13,6 +13,8 @@ public class Token {
     private static final Map<String, HashSet<String>> classSet = new HashMap<>();
     private static final HashSet<String> functionSet = new HashSet<>();
 
+	private boolean isSingleQuoter;
+	
     static {
         keywordsSet.add("true");
         keywordsSet.add("false");
@@ -47,6 +49,7 @@ public class Token {
         }
         else if(type == Type.String) {
             value = value.substring(1, value.length() - 1);
+			isSingleQuoter = value.startsWith("'");
         }
         else if(type == Type.EndSymbol) {
             value = null;
@@ -54,6 +57,11 @@ public class Token {
         this.type = type;
         this.value = value;
     }
+	
+	public boolean isSingleQuoter()
+	{
+		return isSingleQuoter;
+	}
 
     @Override
     public String toString() {

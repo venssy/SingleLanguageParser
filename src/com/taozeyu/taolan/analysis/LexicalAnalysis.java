@@ -121,12 +121,12 @@ public class LexicalAnalysis {
                 if(inIdentifierSetButNotRear(c)) {
                     readBuffer.append(c);
 
-                } /*else if(include(IdentifierRearSign, c)) {
+                } else if(include(IdentifierRearSign, c)) {
                     createType = Type.Identifier;
                     readBuffer.append(c);
                     state = State.Normal;
 
-                } */else {
+                } else {
                     createType = Type.Identifier;
                     state = State.Normal;
                     moveCursor = false;
@@ -194,7 +194,7 @@ public class LexicalAnalysis {
     }
 
     private boolean inIdentifierSetButNotRear(char c) {
-        return (c >= 'a' & c <= 'z' ) | (c >='A' & c <= 'Z') | (c >= '0' & c <= '9')|| include(IdentifierSign, c);
+        return (c >= 'a' & c <= 'z' ) | (c >='A' & c <= 'Z') | (c >= '0' & c <= '9') | include(IdentifierSign, c);
     }
 
     private boolean include(char[] range, char c) {
