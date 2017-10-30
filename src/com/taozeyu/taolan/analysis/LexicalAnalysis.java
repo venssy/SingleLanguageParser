@@ -11,7 +11,7 @@ import com.taozeyu.taolan.analysis.Token.Type;
 public class LexicalAnalysis {
 
     private static enum State {
-        Normal, Identifier, Sign, Annotation, String, RegEx, Space;
+        Normal, Identifier, Sign, String, Space,
     }
 
     private static final char[] FilterChar = new char[] {
@@ -49,7 +49,7 @@ public class LexicalAnalysis {
         this.state = State.Normal;
     }
 
-    Token read() throws IOException, LexicalAnalysisException {
+    public Token read() throws IOException, LexicalAnalysisException {
 
         if(endToken != null) {
             return endToken;
@@ -98,21 +98,14 @@ public class LexicalAnalysis {
                 else if(SignParser.inCharSet(c)) {
                     state = State.Sign;
                 }
-                else if(c == '#') {
-                    state = State.Annotation;
-                }
                 else if(c == '\"' | c == '\'') {
                     state = State.String;
-                    transferredMeaningSign = false;
-                }
-                else if(c == '`') {
-                    state = State.RegEx;
                     transferredMeaningSign = false;
                 }
                 else if(include(Space, c)) {
                     state = State.Space;
                 }
-                else if(c == '\n') {
+                else if(c == '\n' || c == '\r') {
                     createType = Type.NewLine;
                 }
                 else if(c == '\0') {
@@ -128,12 +121,12 @@ public class LexicalAnalysis {
                 if(inIdentifierSetButNotRear(c)) {
                     readBuffer.append(c);
 
-                } else if(include(IdentifierRearSign, c)) {
+                } /*else if(include(IdentifierRearSign, c)) {
                     createType = Type.Identifier;
                     readBuffer.append(c);
                     state = State.Normal;
 
-                } else {
+                } */else {
                     createType = Type.Identifier;
                     state = State.Normal;
                     moveCursor = false;
@@ -154,17 +147,6 @@ public class LexicalAnalysis {
                     moveCursor = false;
                 }
 
-            } else if(state == State.Annotation) {
-
-                if(c != '\n' & c != '\0') {
-                    readBuffer.append(c);
-
-                } else {
-                    createType = Type.Annotation;
-                    state = State.Normal;
-                    moveCursor = false;
-
-                }
             } else if(state == State.String) {
 
                 if(c == '\n') {
@@ -193,32 +175,7 @@ public class LexicalAnalysis {
                         state = State.Normal;
                     }
                 }
-            } else if(state == State.RegEx) {
-
-                if(transferredMeaningSign) {
-
-                    if(c != '`') {
-                        throw new LexicalAnalysisException(c);
-                    }
-                    readBuffer.append(c);
-                    transferredMeaningSign = false;
-
-                } else if(c =='\\') {
-                    transferredMeaningSign = true;
-
-                } else if(c == '\0') {
-                    throw new LexicalAnalysisException(c);
-
-                } else if(c == '`') {
-                    readBuffer.append(c);
-                    createType = Type.RegEx;
-                    state = State.Normal;
-
-                } else {
-                    readBuffer.append(c);
-                }
-
-             } else if(state == State.Space) {
+            } else if(state == State.Space) {
 
                 if(include(Space, c)) {
                     readBuffer.append(c);

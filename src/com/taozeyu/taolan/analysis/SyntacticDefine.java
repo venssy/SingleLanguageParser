@@ -11,41 +11,36 @@ class SyntacticDefine {
 
     static {
         NonTerminalSymbol[] defineNodes = new NonTerminalSymbol[] {
-
-            //基本单元
-            node(Exp.Number).or(token(Type.Number), node().or(token(Type.Sign, "."), token(Type.Number)).sign('?')),
-            node(Exp.Variable).or(
+                //基本单元
+                node(Exp.Number).or(token(Type.Number), node().or(token(Type.Sign, "."), token(Type.Number)).sign('?')),
+                /*node(Exp.Variable).or(
                         node().or(token(Type.Sign, "@")).or(token(Type.Sign, "@@")).sign('?'),
-                        token(Type.Identifier)),
-            node(Exp.String).or(token(Type.String))
-                            .or(token(Type.Sign, "$"), token(Type.Identifier)),
-            node(Exp.RegEx).or(token(Type.RegEx)),
+                        token(Type.Identifier)),*/
+				node(Exp.Variable).or(token(Type.Identifier)),
+                node(Exp.String).or(token(Type.String)),
 
-            node(Exp.SpaceOrEnter).or(token(Type.NewLine))
-                                  .or(token(Type.Space)).sign('*'),
-            node(Exp.Space).or(token(Type.Space)).sign('*'),
-            node(Exp.SplitSpaceSign).or(token(Type.Space)).sign('+'),
+                node(Exp.SpaceOrEnter).or(token(Type.NewLine)).or(token(Type.Space)).sign('*'),
+                node(Exp.Space).or(token(Type.Space)).sign('*'),
+                node(Exp.SplitSpaceSign).or(token(Type.Space)).sign('+'),
 
-            node(Exp.Enter).or(node().or(token(Type.Space)).sign('?'), token(Type.NewLine)),
+                node(Exp.Enter).or(node().or(token(Type.Space)).sign('?'), token(Type.NewLine)),
 
-            node(Exp.This).or(token(Type.Keyword, "this")),
-            node(Exp.Null).or(token(Type.Keyword, "null")),
+                node(Exp.Null).or(token(Type.Keyword, "null")),
 
-            node(Exp.Boolean).or(token(Type.Keyword, "true"))
-                             .or(token(Type.Keyword, "false")),
+                node(Exp.Boolean).or(token(Type.Keyword, "true"))
+                        .or(token(Type.Keyword, "false")),
 
-            node(Exp.Element).or(Exp.Number)
-                             .or(Exp.Variable)
-                             .or(Exp.String)
-                             .or(Exp.RegEx)
-                             .or(Exp.Array)
-                             .or(Exp.Container)
-                             .or(Exp.This)
-                             .or(Exp.Null)
-                             .or(Exp.Boolean),
+                node(Exp.Element).or(Exp.Number)
+                        .or(Exp.Variable)
+                        .or(Exp.String)
+                        .or(Exp.Array)
+                        .or(Exp.Container)
+                        .or(Exp.Null)
+                        .or(Exp.Boolean),
 
             //表达式相关
-            node(Exp.L0Expression).or(Exp.L1Expression, node().or(Exp.L0Sign, Exp.L1Expression).sign('*')),
+                //赋值表达式
+            /*node(Exp.L0Expression).or(Exp.L1Expression, node().or(Exp.L0Sign, Exp.L1Expression).sign('*')),
             node(Exp.L0ParamExpression).or(Exp.L1ParamExpression, node().or(Exp.L0Sign, Exp.L1ParamExpression).sign('*')),
 
             node(Exp.L0Sign).or(token(Type.Sign, "="))
@@ -53,8 +48,10 @@ class SyntacticDefine {
                             .or(token(Type.Sign, "*=")).or(token(Type.Sign, "/="))
                             .or(token(Type.Sign, "&&=")).or(token(Type.Sign, "=~"))
                             .or(token(Type.Sign, "||=")).or(token(Type.Sign, "&="))
-                            .or(token(Type.Sign, "<<")),
+                            .or(token(Type.Sign, "<<")),*/
 
+
+            // 二元判断
             node(Exp.L1Expression).or(Exp.L2Expression, node().or(
                     token(Type.Sign, "?"), Exp.L2Expression, token(Type.Sign, ":"), Exp.L2Expression
             ).sign('?')),
@@ -129,11 +126,13 @@ class SyntacticDefine {
 
             node(Exp.L10Tail).or(Exp.L10TailOperation).sign('*'),
 
-            node(Exp.L10TailOperation).or(token(Type.Sign, "."), Exp.SpaceOrEnter, token(Type.Identifier))
-                                      .or(token(Type.Sign, "["), Exp.L0Expression, token(Type.Sign, "]"))
-                                      .or(token(Type.Sign, ".."), Exp.L10Expression)
-                                      .or(token(Type.Sign, "<<"), Exp.L10Expression),
 
+            node(Exp.L10TailOperation).or(token(Type.Sign, "."), Exp.SpaceOrEnter, token(Type.Identifier))
+                                      .or(token(Type.Sign, "["), Exp.L0Expression, token(Type.Sign, "]")),
+                                      //.or(token(Type.Sign, ".."), Exp.L10Expression)
+                                      //.or(token(Type.Sign, "<<"), Exp.L10Expression),
+
+                // 单元，或为一个有返回值的表达式->单元
             node(Exp.L11Expression).or(
                     node().or(token(Type.Sign, "("), Exp.L0Expression, token(Type.Sign, ")"))
                           .or(Exp.Element)),

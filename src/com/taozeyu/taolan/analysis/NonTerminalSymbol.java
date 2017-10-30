@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.taozeyu.taolan.analysis.Java7_8.String_join;
+
 class NonTerminalSymbol {
 
     static enum Exp {
@@ -91,9 +93,9 @@ class NonTerminalSymbol {
                 for (Object obj:expansion) {
                     signsStr.add(obj.toString());
                 }
-                expansionStr.add(String.join(" ", signsStr));
+                expansionStr.add(String_join(" ", signsStr));
             }
-            str = "["+ String.join(" | ", expansionStr) +"]";
+            str = "["+ String_join(" | ", expansionStr) +"]";
         }
         if(sign != null) {
             str += "(" + sign + ")";

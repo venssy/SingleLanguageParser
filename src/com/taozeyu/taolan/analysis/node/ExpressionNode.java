@@ -70,6 +70,7 @@ public abstract class ExpressionNode extends AnalysisNode {
 
     @Override
     public void print(int retractNum, PrintStream out) {
+        out.println("[[[Expression]]]"+elementOperands[0].value);
         if(invoker != null) {
             printAt(0, retractNum, out);
             invoker.print(retractNum, out);

@@ -12,7 +12,7 @@ class SignParser {
     private final static int MaxLength, MinLength;
 
     static {
-        String[] signArray = new String[] {
+        /*String[] signArray = new String[] {
             "+", "-", "*", "/", "%",
             ">", "<", ">=", "<=", "=", "!=", "==", "=~",
             "+=", "-=", "*=", "/=", "%=",
@@ -23,6 +23,15 @@ class SignParser {
             ".", ",", ";", "..",
             "(", ")", "[", "]", "{", "}", "|",
             "@", "@@", "$",
+        };*/
+
+        String[] signArray = new String[] {
+                "+", "-", "*", "/", "%",
+                ">", "<", ">=", "<=", "!=", "==", "=~",
+                "&&", "||", "!", "^",
+                "?", ":",
+                ".", ",",
+                "(", ")", "[", "]", "{", "}", "|",
         };
 
         int maxLength = Integer.MIN_VALUE,

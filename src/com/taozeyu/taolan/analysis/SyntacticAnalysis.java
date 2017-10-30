@@ -24,9 +24,9 @@ public class SyntacticAnalysis {
         TerminalSymbol symbol;
         if(readBuffered == null) {
             Token token;
-            do {
+            //do {
                 token = lexicalAnalysis.read();
-            } while(token.type == Type.Annotation);
+            //} while(token.type == Type.Annotation);
 
             symbol = new TerminalSymbol(token.type, token.value);
         } else{
