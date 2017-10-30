@@ -10,8 +10,7 @@ import java.io.StringReader;
 
 public class Main {
     public static void main(String[] args){
-        String code = "3+5+(\"String\"-5)+" +
-						"String.";
+        String code = "3 +\t8.8";
         System.out.println(code+"\n\n");
         Reader r = new StringReader(code);
         LexicalAnalysis la = new LexicalAnalysis(r);

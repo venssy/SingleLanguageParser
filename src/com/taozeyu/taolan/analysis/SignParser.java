@@ -52,7 +52,7 @@ class SignParser {
         }
         signSetList = new ArrayList<>(maxLength - minLength);
         for(int i=0; i< maxLength - minLength + 1; ++i) {
-            signSetList.add(new HashSet<>());
+            signSetList.add(new HashSet<String>());
         }
         for(String sign:signArray) {
             int length = sign.length();
